@@ -12,14 +12,14 @@
 
 oibackoff - backoff functionality for any : fn(err, data);
 
-# Features #
+## Features ##
 
 * exponential backoff
 * linear backoff
 * max number of retries
 * max time to wait per try
 
-# Examples #
+## Examples ##
 
 ```
 var backoff = require('oibackoff');
@@ -43,15 +43,15 @@ backoff(fs.stat, __filename, function(err, stats, priorErrors) {
 });
 ```
 
-# Options #
+## Options ##
 
-## maxRetries ##
+### maxRetries ###
 
 Default: 5
 
 Will retry a maximum number of times. If you don't want a maxiumum, set this to 0.
 
-## startDelay ##
+### startDelay ###
 
 Default : 1
 
@@ -59,7 +59,7 @@ This is the length of time to the first retry (in seconds). Note: that this also
 
 If you choose the exponential algorithm, then 1s startDelay will result in delays of 1, 2, 4, 8 etc
 
-## algorithm ##
+### algorithm ###
 
 Default : 'exponential'
 
@@ -69,7 +69,7 @@ Valid Values : exponential, linear, fibonacci ;)
     'algorithm'  : 'exponential',
     'startDelay' : 1, // you could make it any other integer or fraction (e.g. 0.25)
 
-# Example Backoff Stategies #
+## Example Backoff Stategies ##
 
 ```
     var oibackoff = require('oibackoff');
@@ -93,12 +93,12 @@ Valid Values : exponential, linear, fibonacci ;)
     });
 ```
 
-# Author #
+## Author ##
 
 Written by: [Andrew Chilton](http://chilts.org/) - [Blog](http://chilts.org/blog/) -
 [Twitter](https://twitter.com/andychilton).
 
-# License #
+## License ##
 
 The MIT License : http://opensource.org/licenses/MIT
 
