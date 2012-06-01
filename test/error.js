@@ -47,4 +47,20 @@ test("Check the number of args (should be at least two)", function (t) {
     t.end();
 });
 
+test("Check max failure retries", function (t) {
+    t.plan(3);
+
+    // always return failure from the function
+    var fn = function(callback) {
+        callback('Error', null);
+    };
+
+    backoff(fn, function(err, data, priorErrors) {
+        t.equal(err, 'Error', 'error received');
+        t.equal(data, null, 'no data received');
+        t.equal(priorErrors.length, 4, 'There were 4 errors prior to this one');
+        t.end();
+    });
+});
+
 // --------------------------------------------------------------------------------------------------------------------
