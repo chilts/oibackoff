@@ -1,0 +1,46 @@
+{
+  "name": "oibackoff",
+  "description": "Incremental backoff for any function.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Andrew Chilton",
+    "email": "chilts@appsattic.com",
+    "url": "http://www.chilts.org/"
+  },
+  "homepage": "https://github.com/appsattic/oibackoff",
+  "contributors": [],
+  "devDependencies": {
+    "tap": ">= 0.2.5"
+  },
+  "dependencies": {
+    "underscore": "~1.3.3"
+  },
+  "main": "oibackoff.js",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/appsattic/oibackoff.git"
+  },
+  "bugs": {
+    "url": "http://github.com/appsattic/oibackoff/issues",
+    "mail": "chilts@appsattic.com"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "keywords": [
+    "function",
+    "backoff",
+    "incremental",
+    "exponentail",
+    "linear"
+  ],
+  "scripts": {
+    "test": "tap test/"
+  }
+}
