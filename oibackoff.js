@@ -2,12 +2,8 @@ var _ = require('underscore');
 
 var defaults = {
     'maxRetries' : 5,
-    // could be 'linear' or 'fibonacci' (for the lulz)
-    // * exponential = 1, 2, 4, 8, 16, ...
-    // * linear      = 1, 2, 3, 4, 5, ...
-    // * fibonacci   = 1, 2, 3, 5, 8, ...
-    'algorithm' : 'exponential',
-    'start'     : 1, // you could make it any other integer or fraction (e.g. 0.25)
+    'algorithm'  : 'exponential',
+    'startDelay' : 1, // you could make it any other integer or fraction (e.g. 0.25)
 };
 
 exports.backoff = function(opts) {

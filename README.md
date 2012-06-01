@@ -22,6 +22,8 @@ oibackoff - backoff functionality for any : fn(err, data);
 # Examples #
 
 ```
+var backoff = require('oibackoff');
+
 // original code
 fs.stat(__filename, function(err, stats) {
     if (err) {
@@ -43,7 +45,53 @@ backoff(fs.stat, __filename, function(err, stats, priorErrors) {
 
 # Options #
 
-ToDo :)
+## maxRetries ##
+
+Default: 5
+
+Will retry a maximum number of times. If you don't want a maxiumum, set this to 0.
+
+## startDelay ##
+
+Default : 1
+
+This is the length of time to the first retry (in seconds). Note: that this also defines the subsequent delays too.
+
+If you choose the exponential algorithm, then 1s startDelay will result in delays of 1, 2, 4, 8 etc
+
+## algorithm ##
+
+Default : 'exponential'
+
+Valid Values : exponential, linear, fibonacci ;)
+
+    'maxRetries' : 5,
+    'algorithm'  : 'exponential',
+    'startDelay' : 1, // you could make it any other integer or fraction (e.g. 0.25)
+
+# Example Backoff Stategies #
+
+```
+    var oibackoff = require('oibackoff');
+
+    // 0.4, 0.8, 1.6, 3.2, 6.4, ...
+    var backoff = oibackoff.backoff({
+        algorithm  : 'exponential',
+        startDelay : 0.4,
+    });
+
+    // 1, 2, 3, 4, 5, ...
+    var backoff = oibackoff.backoff({
+        algorithm  : 'linear',
+        startDelay : 1,
+    });
+
+    // 0.5, 1.0, 1.5, 2.5, 4, ...
+    var backoff = oibackoff.backoff({
+        algorithm  : 'fibonacci',
+        startDelay : 0.5,
+    });
+```
 
 # Author #
 
