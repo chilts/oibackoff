@@ -1,16 +1,16 @@
 ```
-          _______ _________ _    ______   _______  _______  _        _______  _______  _______ 
-         (  ___  )\__   __/( )  (  ___ \ (  ___  )(  ____ \| \    /\(  ___  )(  ____ \(  ____ \
-         | (   ) |   ) (   | |  | (   ) )| (   ) || (    \/|  \  / /| (   ) || (    \/| (    \/
-         | |   | |   | |   | |  | (__/ / | (___) || |      |  (_/ / | |   | || (__    | (__    
-         | |   | |   | |   | |  |  __ (  |  ___  || |      |   _ (  | |   | ||  __)   |  __)   
-         | |   | |   | |   (_)  | (  \ \ | (   ) || |      |  ( \ \ | |   | || (      | (      
-         | (___) |___) (___ _   | )___) )| )   ( || (____/\|  /  \ \| (___) || )      | )    _ 
-         (_______)\_______/(_)  |/ \___/ |/     \|(_______/|_/    \/(_______)|/       |/    (_)
-                                                                                               
+          _______ _________ _       ______   _______  _______  _        _______  _______  _______ 
+         (  ___  )\__   __/( )     (  ___ \ (  ___  )(  ____ \| \    /\(  ___  )(  ____ \(  ____ \
+         | (   ) |   ) (   | |     | (   ) )| (   ) || (    \/|  \  / /| (   ) || (    \/| (    \/
+         | |   | |   | |   | |     | (__/ / | (___) || |      |  (_/ / | |   | || (__    | (__    
+         | |   | |   | |   | |     |  __ (  |  ___  || |      |   _ (  | |   | ||  __)   |  __)   
+         | |   | |   | |   (_)     | (  \ \ | (   ) || |      |  ( \ \ | |   | || (      | (      
+         | (___) |___) (___ _      | )___) )| )   ( || (____/\|  /  \ \| (___) || )      | )      
+         (_______)\_______/(_)     |/ \___/ |/     \|(_______/|_/    \/(_______)|/       |/       
+                                                                                                  
 ```
 
-oibackoff - backoff functionality for any function(err, data).
+oibackoff - backoff functionality for any : fn(err, data);
 
 # Features #
 
@@ -21,6 +21,7 @@ oibackoff - backoff functionality for any function(err, data).
 
 # Examples #
 
+```
 // original code
 fs.stat(__filename, function(err, stats) {
     if (err) {
@@ -38,6 +39,7 @@ backoff(fs.stat, __filename, function(err, stats, priorErrors) {
     }
     console.log('Filesize : ' + stats.size);
 });
+```
 
 # Options #
 
@@ -45,7 +47,7 @@ ToDo :)
 
 # Author #
 
-Written by [Andrew Chilton](http://chilts.org/) - [Blog](http://chilts.org/blog/) -
+Written by: [Andrew Chilton](http://chilts.org/) - [Blog](http://chilts.org/blog/) -
 [Twitter](https://twitter.com/andychilton).
 
 # License #
