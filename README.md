@@ -65,32 +65,28 @@ Default : 'exponential'
 
 Valid Values : exponential, linear, fibonacci ;)
 
-    'maxRetries' : 5,
-    'algorithm'  : 'exponential',
-    'startDelay' : 1, // you could make it any other integer or fraction (e.g. 0.25)
-
 ## Example Backoff Stategies ##
 
 ```
-    var oibackoff = require('oibackoff');
+var oibackoff = require('oibackoff');
 
-    // 0.4, 0.8, 1.6, 3.2, 6.4, ...
-    var backoff = oibackoff.backoff({
-        algorithm  : 'exponential',
-        startDelay : 0.4,
-    });
+// 0.4, 0.8, 1.6, 3.2, 6.4, ...
+var backoff = oibackoff.backoff({
+    algorithm  : 'exponential',
+    startDelay : 0.4,
+});
 
-    // 1, 2, 3, 4, 5, ...
-    var backoff = oibackoff.backoff({
-        algorithm  : 'linear',
-        startDelay : 1,
-    });
+// 1, 2, 3, 4, 5, ...
+var backoff = oibackoff.backoff({
+    algorithm  : 'linear',
+    startDelay : 1,
+});
 
-    // 0.5, 1.0, 1.5, 2.5, 4, ...
-    var backoff = oibackoff.backoff({
-        algorithm  : 'fibonacci',
-        startDelay : 0.5,
-    });
+// 0.5, 1.0, 1.5, 2.5, 4, ...
+var backoff = oibackoff.backoff({
+    algorithm  : 'fibonacci',
+    startDelay : 0.5,
+});
 ```
 
 ## Author ##
