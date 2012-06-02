@@ -10,14 +10,14 @@
                                                                                                   
 ```
 
-oibackoff - backoff functionality for any : fn(err, data);
+oibackoff - backoff functionality for any : fn(function(err, data) { ... });
 
 ## Features ##
 
 * exponential backoff
-* linear backoff
+* incremental backoff
+* fibonacci backoff ;)
 * max number of retries
-* max time to wait per try
 
 ## Examples ##
 
@@ -39,6 +39,7 @@ backoff(fs.stat, __filename, function(err, stats, priorErrors) {
         console.log('An error an occurred: ' + err);
         return;
     }
+    console.log('There were ' + priorErrors.length ' errors prior to this success');
     console.log('Filesize : ' + stats.size);
 });
 ```
@@ -51,19 +52,19 @@ Default: 5
 
 Will retry a maximum number of times. If you don't want a maxiumum, set this to 0.
 
-### startDelay ###
+### delayRatio ###
 
 Default : 1
 
-This is the length of time to the first retry (in seconds). Note: that this also defines the subsequent delays too.
+This is the ratio for each delay between retries (in seconds).
 
-If you choose the exponential algorithm, then 1s startDelay will result in delays of 1, 2, 4, 8 etc
+If you choose the exponential algorithm, then 1s delayRatio will result in delays of 1, 2, 4, 8 etc
 
 ### algorithm ###
 
 Default : 'exponential'
 
-Valid Values : exponential, linear, fibonacci ;)
+Valid Values : exponential, incremental, fibonacci ;)
 
 ## Example Backoff Stategies ##
 
@@ -73,19 +74,19 @@ var oibackoff = require('oibackoff');
 // 0.4, 0.8, 1.6, 3.2, 6.4, ...
 var backoff = oibackoff.backoff({
     algorithm  : 'exponential',
-    startDelay : 0.4,
+    delayRatio : 0.4,
 });
 
 // 1, 2, 3, 4, 5, ...
 var backoff = oibackoff.backoff({
-    algorithm  : 'linear',
-    startDelay : 1,
+    algorithm  : 'incremental',
+    delayRatio : 1,
 });
 
 // 0.5, 1.0, 1.5, 2.5, 4, ...
 var backoff = oibackoff.backoff({
     algorithm  : 'fibonacci',
-    startDelay : 0.5,
+    delayRatio : 0.5,
 });
 ```
 

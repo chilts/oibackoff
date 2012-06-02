@@ -1,13 +1,67 @@
+// --------------------------------------------------------------------------------------------------------------------
+//
+// oibackoff.js - backoff functionality for any : fn(function(err, data) { ... });
+//
+// Copyright (c) 2012 AppsAttic Ltd - http://www.appsattic.com/
+// Written by Andrew Chilton <chilts@appsattic.com>
+//
+// License: http://opensource.org/licenses/MIT
+//
+// --------------------------------------------------------------------------------------------------------------------
+
 var _ = require('underscore');
 
 var defaults = {
     'maxRetries' : 3,
     'maxDelay'   : 10,
     'algorithm'  : 'exponential',
-    'startDelay' : 1, // you could make it any other integer or fraction (e.g. 0.25)
+    'delayRatio' : 1, // you could make it any other integer or fraction (e.g. 0.25)
 };
 
-exports.backoff = function(opts) {
+// returns 1, 2, 3, 4, 5, 6, 7, ...
+function incremental(n) {
+    return n + 1;
+}
+
+// memoizes 0, 1, 2, 4, 8, 16, 32, ...
+var exp = [];
+function exponential(n) {
+    if ( exp[n] ) {
+        return exp[n];
+    }
+    if ( n === 0 ) {
+        exp[0] = 1;
+        return exp[0];
+    }
+    if ( n === 1 ) {
+        exp[1] = 2;
+        return exp[1];
+    }
+    exp[n] = exponential(n-1) * 2;
+    return exp[n];
+}
+
+// memoizes 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+var fib = [];
+function fibonacci(n) {
+    if ( fib[n] ) {
+        return fib[n];
+    }
+    if ( n <= 1 ) {
+        fib[n] = n;
+        return fib[n];
+    }
+    fib[n] = fibonacci(n-2) + fibonacci(n-1);
+    return fib[n];
+}
+
+var algorithm = {
+    fibonacci   : fibonacci,
+    exponential : exponential,
+    incremental : incremental,
+};
+
+var backoff = function(opts) {
 
     // build up all the options
     opts = _.extend({}, defaults, opts);
@@ -26,10 +80,6 @@ exports.backoff = function(opts) {
         var fn = args.shift();
         var callback = args.pop();
 
-        // console.log(fn);
-        // console.log(args);
-        // console.log(callback);
-
         var priorErrors = [];
 
         // create the function we want to call when fn() calls back
@@ -38,22 +88,17 @@ exports.backoff = function(opts) {
                 // remember this error
                 priorErrors.push(err);
 
-                console.log('' + (new Date()).toISOString() + ' : got an error');
-
                 // call this again but only if we
                 var doAgain = false;
                 if ( opts.maxRetries === 0 ) {
-                    console.log('maxretries is zero, trying again');
                     doAgain = true;
                 }
                 else {
                     if ( retries < opts.maxRetries ) {
-                        console.log('retries is less than maxRetries');
                         doAgain = true;
                     }
                     else {
                         // we've retried enough, call callback as a failure
-                        console.log('retries is more than maxRetries, failing');
                         callback(err, null, priorErrors);
                         return;
                     }
@@ -62,14 +107,8 @@ exports.backoff = function(opts) {
                 if ( doAgain ) {
                     retries++;
 
-                    // increment the delay (or set it to the start value)
-                    if ( delay === 0 ) {
-                        delay = opts.startDelay;
-                    }
-                    else {
-                        // should be changed to use the algorithm
-                        delay = delay * 2;
-                    }
+                    // figure out the actual delay using the algorithm, the retry count and the delayRatio
+                    delay = algorithm[opts.algorithm](retries) * opts.delayRatio;
 
                     setTimeout(function() {
                         fn.apply(null, args);
@@ -85,3 +124,8 @@ exports.backoff = function(opts) {
         fn.apply(null, args);
     };
 };
+
+exports.exponential = exponential;
+exports.incremental = incremental;
+exports.fibonacci   = fibonacci;
+exports.backoff     = backoff;
