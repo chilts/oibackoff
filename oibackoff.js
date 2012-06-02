@@ -105,12 +105,14 @@ var backoff = function(opts) {
                 }
 
                 if ( doAgain ) {
-                    retries++;
-
                     // figure out the actual delay using the algorithm, the retry count and the delayRatio
                     delay = algorithm[opts.algorithm](retries) * opts.delayRatio;
 
                     setTimeout(function() {
+                        // increment how many retries we have done
+                        retries++;
+
+                        // now call it again
                         fn.apply(null, args);
                     }, delay * 1000);
                 }
