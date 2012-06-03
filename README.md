@@ -14,35 +14,58 @@ oibackoff - backoff functionality for any : fn(function(err, data) { ... });
 
 ## Features ##
 
-* exponential backoff
-* incremental backoff
-* fibonacci backoff ;)
+* three different backoff algorithsm: exponential, fibonacci and linear
 * max number of tries
+* max time to wait for any retry
+* scaling of the delay between tries
+
+You code can stay the same plus you also get extra information about intermediate errors.
 
 ## Examples ##
 
+Original code:
+
 ```
-var backoff = require('oibackoff');
+var dns = require('dns');
 
 // original code
-fs.stat(__filename, function(err, stats) {
+dns.resolve('chilts.org', function(err, addresses) {
     if (err) {
-        console.log('An error an occurred: ' + err);
+        // do something to recover from this error
         return;
     }
-    console.log('Filesize : ' + stats.size);
-}
 
-// exponential backoff
-backoff(fs.stat, __filename, function(err, stats, priorErrors) {
+    // do something with addresses
+    console.log(addresses);
+});
+
+```
+
+Using exponential backoff, with a maxium of 5 tries, with delays of 0.2, 0.4, 0.8, 1.6 and 3.2 seconds:
+
+```
+var backoff = require('oibackoff').backoff({
+    algorithm  : 'exponential',
+    delayRatio : 0.2,
+    maxTries   : 5,
+});
+
+backoff(dns.resolve, 'chilts.org', function(err, addresses, priorErrors) {
     if (err) {
-        console.log('An error an occurred: ' + err);
+        // do something to recover from this error
         return;
     }
-    console.log('There were ' + priorErrors.length ' errors prior to this success');
-    console.log('Filesize : ' + stats.size);
+
+    // do something with addresses
+    console.log(addresses);
 });
 ```
+
+Notes:
+
+* 'err' contains the last error encountered (if maxTries was reached)
+* 'addresses' contrains the same as the original upon success, or null if all attempts failed
+* 'priorErrors' is informational and you may ignore it or use it to help you diagnose problems
 
 ## Options ##
 
