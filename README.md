@@ -17,7 +17,7 @@ oibackoff - backoff functionality for any : fn(function(err, data) { ... });
 * exponential backoff
 * incremental backoff
 * fibonacci backoff ;)
-* max number of retries
+* max number of tries
 
 ## Examples ##
 
@@ -46,9 +46,9 @@ backoff(fs.stat, __filename, function(err, stats, priorErrors) {
 
 ## Options ##
 
-### maxRetries ###
+### maxTries ###
 
-Default: 5
+Default: 3
 
 Will retry a maximum number of times. If you don't want a maxiumum, set this to 0.
 
@@ -56,7 +56,7 @@ Will retry a maximum number of times. If you don't want a maxiumum, set this to 
 
 Default : 1
 
-This is the ratio for each delay between retries (in seconds).
+This is the ratio for each delay between each try (in seconds).
 
 If you choose the exponential algorithm, then 1s delayRatio will result in delays of 1, 2, 4, 8 etc
 

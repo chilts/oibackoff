@@ -47,7 +47,7 @@ test("Check the number of args (should be at least two)", function (t) {
     t.end();
 });
 
-test("Check max failure retries", function (t) {
+test("Check default max tries", function (t) {
     t.plan(3);
 
     // always return failure from the function
@@ -58,7 +58,7 @@ test("Check max failure retries", function (t) {
     backoff(fn, function(err, data, priorErrors) {
         t.equal(err, 'Error', 'error received');
         t.equal(data, null, 'no data received');
-        t.equal(priorErrors.length, 4, 'There were 4 errors prior to this one');
+        t.equal(priorErrors.length, 2, 'There were 2 errors prior to this one');
         t.end();
     });
 });

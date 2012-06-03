@@ -12,7 +12,7 @@
 var _ = require('underscore');
 
 var defaults = {
-    'maxRetries' : 3,
+    'maxTries'   : 3,
     'maxDelay'   : 10,
     'algorithm'  : 'exponential',
     'delayRatio' : 1, // you could make it any other integer or fraction (e.g. 0.25)
@@ -72,7 +72,7 @@ var backoff = function(opts) {
         }
 
         // set up a few things we need to keep a check of
-        var retries = 0;
+        var tries = 0;
         var delay = 0;
 
         // the function to call is the first arg, the last is the callback
@@ -85,16 +85,13 @@ var backoff = function(opts) {
         // create the function we want to call when fn() calls back
         var myCallback = function(err, data) {
             if ( err ) {
-                // remember this error
-                priorErrors.push(err);
-
                 // call this again but only if we
                 var doAgain = false;
-                if ( opts.maxRetries === 0 ) {
+                if ( opts.maxTries === 0 ) {
                     doAgain = true;
                 }
                 else {
-                    if ( retries < opts.maxRetries ) {
+                    if ( tries < opts.maxTries ) {
                         doAgain = true;
                     }
                     else {
@@ -104,13 +101,16 @@ var backoff = function(opts) {
                     }
                 }
 
+                // remember this error
+                priorErrors.push(err);
+
                 if ( doAgain ) {
                     // figure out the actual delay using the algorithm, the retry count and the delayRatio
-                    delay = algorithm[opts.algorithm](retries) * opts.delayRatio;
+                    delay = algorithm[opts.algorithm](tries) * opts.delayRatio;
 
                     setTimeout(function() {
-                        // increment how many retries we have done
-                        retries++;
+                        // increment how many tries we have done
+                        tries++;
 
                         // now call it again
                         fn.apply(null, args);
@@ -123,6 +123,7 @@ var backoff = function(opts) {
 
         // add our own callback to the args and call the incoming function
         args.push(myCallback);
+        tries++;
         fn.apply(null, args);
     };
 };
