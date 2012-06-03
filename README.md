@@ -117,7 +117,7 @@ var backoff = oibackoff.backoff({
     delayRatio : 1,
 });
 
-// 0.5, 1.0, 1.5, 2.5, 4, ...
+// 0.5, 0.5, 1.0, 1.5, 2.5, 4, ...
 var backoff = oibackoff.backoff({
     algorithm  : 'fibonacci',
     delayRatio : 0.5,
