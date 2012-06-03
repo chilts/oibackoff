@@ -14,7 +14,7 @@ oibackoff - backoff functionality for any : fn(function(err, data) { ... });
 
 ## Features ##
 
-* three different backoff algorithsm: exponential, fibonacci and linear
+* three different backoff algorithms: exponential, fibonacci and linear
 * max number of tries
 * max time to wait for any retry
 * scaling of the delay between tries
@@ -41,7 +41,8 @@ dns.resolve('chilts.org', function(err, addresses) {
 
 ```
 
-Using exponential backoff, with a maxium of 5 tries, with delays of 0.2, 0.4, 0.8, 1.6 and 3.2 seconds:
+Using exponential backoff, with a maxium of 5 tries, with delays of 0.2, 0.4, 0.8, 1.6 and 3.2 seconds is fairly
+similar and you can reuse the 'backoff' function many times:
 
 ```
 var backoff = require('oibackoff').backoff({
@@ -63,7 +64,7 @@ backoff(dns.resolve, 'chilts.org', function(err, addresses, priorErrors) {
 
 Notes:
 
-* 'err' contains the last error encountered (if maxTries was reached)
+* 'err' contains the last error encountered (if maxTries was reached without success)
 * 'addresses' contrains the same as the original upon success, or null if all attempts failed
 * 'priorErrors' is informational and you may ignore it or use it to help you diagnose problems
 
@@ -88,6 +89,14 @@ If you choose the exponential algorithm, then 1s delayRatio will result in delay
 Default : 'exponential'
 
 Valid Values : exponential, incremental, fibonacci ;)
+
+### maxDelay ###
+
+No Default.
+
+If your chosen backoff strategy reaches a point which is above this number, then each succesive retry will top-out at
+'maxDelay' e.g. if you choose 'exponential', with a delayRatio of 1 and maxTries at 10, the retry delays will be 1, 2,
+4, 8, 10, 10, ... (instead of 1, 2, 4, 8, 16, 32, ...).
 
 ## Example Backoff Stategies ##
 
@@ -115,8 +124,8 @@ var backoff = oibackoff.backoff({
 
 ## Author ##
 
-Written by: [Andrew Chilton](http://chilts.org/) - [Blog](http://chilts.org/blog/) -
-[Twitter](https://twitter.com/andychilton).
+Written by: [Andrew Chilton](http://chilts.org/) for [AppsAttic](http://appsattic.com) -
+[Blog](http://chilts.org/blog/) - [Twitter](https://twitter.com/andychilton).
 
 ## License ##
 
