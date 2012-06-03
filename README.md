@@ -125,7 +125,7 @@ var backoff = oibackoff.backoff({
 ## Author ##
 
 Written by: [Andrew Chilton](http://chilts.org/) - [Blog](http://chilts.org/blog/) -
-[andychilton@Twitter](https://twitter.com/andychilton).
+[Twitter](https://twitter.com/andychilton).
 
 For: [AppsAttic](http://appsattic.com).
 
