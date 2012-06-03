@@ -12,6 +12,8 @@
 
 oibackoff - backoff functionality for any : fn(function(err, data) { ... });
 
+[![Build Status](https://secure.travis-ci.org/appsattic/oibackoff.png?branch=master)](http://travis-ci.org/appsattic/oibackoff)
+
 ## Features ##
 
 * three different backoff algorithms: exponential, fibonacci and linear
