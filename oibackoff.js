@@ -131,7 +131,12 @@ var backoff = function(opts) {
     };
 };
 
+// --------------------------------------------------------------------------------------------------------------------
+// exports
+
 exports.exponential = exponential;
 exports.incremental = incremental;
 exports.fibonacci   = fibonacci;
 exports.backoff     = backoff;
+
+// --------------------------------------------------------------------------------------------------------------------
