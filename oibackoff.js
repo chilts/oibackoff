@@ -13,7 +13,6 @@ var _ = require('underscore');
 
 var defaults = {
     'maxTries'   : 3,
-    'maxDelay'   : 10,
     'algorithm'  : 'exponential',
     'delayRatio' : 1, // you could make it any other integer or fraction (e.g. 0.25)
 };
@@ -73,7 +72,6 @@ var backoff = function(opts) {
 
         // set up a few things we need to keep a check of
         var tries = 0;
-        var delay = 0;
 
         // the function to call is the first arg, the last is the callback
         var args = Array.prototype.slice.call(arguments);
@@ -106,7 +104,12 @@ var backoff = function(opts) {
 
                 if ( doAgain ) {
                     // figure out the actual delay using the algorithm, the retry count and the delayRatio
-                    delay = algorithm[opts.algorithm](tries) * opts.delayRatio;
+                    var delay = algorithm[opts.algorithm](tries) * opts.delayRatio;
+
+                    // ... and check it isn't over maxDelay
+                    if ( opts.maxDelay && delay > opts.maxDelay ) {
+                        delay = opts.maxDelay;
+                    }
 
                     setTimeout(function() {
                         // increment how many tries we have done
