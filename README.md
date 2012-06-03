@@ -19,7 +19,7 @@ oibackoff - backoff functionality for any : fn(function(err, data) { ... });
 * max time to wait for any retry
 * scaling of the delay between tries
 
-You code can stay the same plus you also get extra information about intermediate errors.
+Your code can stay the same plus you also get extra information about intermediate errors.
 
 ## Examples ##
 
