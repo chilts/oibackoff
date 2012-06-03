@@ -1,6 +1,6 @@
 {
   "name": "oibackoff",
-  "description": "Incremental backoff for any function.",
+  "description": "Incremental backoff for any : fn(function(err, data) { ... });",
   "version": "0.1.0",
   "author": {
     "name": "Andrew Chilton",
