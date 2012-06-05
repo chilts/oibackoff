@@ -10,7 +10,7 @@
                                                                                                   
 ```
 
-oibackoff - backoff functionality for any : fn(function(err, data) { ... });
+oibackoff - incremental backoff flow-control for any : fn(function(err, data) { ... });
 
 [![Build Status](https://secure.travis-ci.org/appsattic/oibackoff.png?branch=master)](http://travis-ci.org/appsattic/oibackoff)
 

@@ -1,6 +1,6 @@
 {
   "name": "oibackoff",
-  "description": "Incremental backoff for any : fn(function(err, data) { ... });",
+  "description": "Incremental backoff flow-control for any : fn(function(err, data) { ... });",
   "version": "0.1.0",
   "author": {
     "name": "Andrew Chilton",
@@ -38,7 +38,9 @@
     "backoff",
     "incremental",
     "exponentail",
-    "linear"
+    "linear",
+    "control flow",
+    "flow"
   ],
   "scripts": {
     "test": "tap test/"
