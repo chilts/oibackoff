@@ -74,17 +74,30 @@ var backoff = function(opts) {
         var tries = 0;
 
         // the function to call is the first arg, the last is the callback
+        // an intermediate function can be called on error if provided
         var args = Array.prototype.slice.call(arguments);
         var fn = args.shift();
         var callback = args.pop();
+        var intermediate = function() {};
+        if ( _.isFunction( _.last( args ) ) ) {
+            intermediate = args.pop();
+        }
 
         var priorErrors = [];
 
         // create the function we want to call when fn() calls back
         var myCallback = function(err, data) {
             if ( err ) {
+                // figure out the actual delay using the algorithm, the retry count and the delayRatio
+                var delay = algorithm[opts.algorithm](tries) * opts.delayRatio;
+
                 // call this again but only if we
                 var doAgain = false;
+                if ( intermediate(err, tries, delay) === false ) {
+                    // intermediate function has told us not to try again
+                    callback(err, null, priorErrors);
+                    return;
+                }
                 if ( opts.maxTries === 0 ) {
                     doAgain = true;
                 }
@@ -103,9 +116,6 @@ var backoff = function(opts) {
                 priorErrors.push(err);
 
                 if ( doAgain ) {
-                    // figure out the actual delay using the algorithm, the retry count and the delayRatio
-                    var delay = algorithm[opts.algorithm](tries) * opts.delayRatio;
-
                     // ... and check it isn't over maxDelay
                     if ( opts.maxDelay && delay > opts.maxDelay ) {
                         delay = opts.maxDelay;
