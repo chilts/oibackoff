@@ -1,14 +1,22 @@
 {
   "name": "oibackoff",
   "description": "Incremental backoff flow-control for any : fn(function(err, data) { ... });",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Andrew Chilton",
     "email": "chilts@appsattic.com",
     "url": "http://www.chilts.org/"
   },
   "homepage": "https://github.com/appsattic/oibackoff",
-  "contributors": [],
+  "contributors": [{
+    "name": "Andrew Chilton",
+    "email": "chilts@appsattic.com",
+    "web": "http://www.chilts.org/" 
+  },{
+    "name": "Daniel Stevens",
+    "email": "daniel.stevens@senico.com",
+    "web": "http://senico.com/" 
+  }],
   "devDependencies": {
     "tap": ">= 0.2.5"
   },

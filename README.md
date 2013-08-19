@@ -64,6 +64,20 @@ backoff(dns.resolve, 'chilts.org', function(err, addresses, priorErrors) {
 });
 ```
 
+You can also provide an intermediate function which is called after each error. This method can be useful for logging
+or other operations between errors. By returning `false` you can cancel any additional tries.
+
+```
+var intermediate = function(err, tries, delay) {
+    console.log(err);   // last error
+    console.log(tries); // total number of tries performed thus far
+    console.log(delay); // the delay for the next attempt
+    return false;       // this will cancel additional tries
+};
+
+backoff(dns.resolve, 'chilts.org', intermediate, callback);
+```
+
 Notes:
 
 * 'err' contains the last error encountered (if maxTries was reached without success)
@@ -128,6 +142,9 @@ var backoff = oibackoff.backoff({
 
 Written by: [Andrew Chilton](http://chilts.org/) - [Blog](http://chilts.org/blog/) -
 [Twitter](https://twitter.com/andychilton).
+
+Contributors:
+[Daniel Stevens - Senico](http://senico.com/)
 
 ## License ##
 
