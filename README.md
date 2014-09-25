@@ -1,18 +1,13 @@
-```
-          _______ _________ _       ______   _______  _______  _        _______  _______  _______ 
-         (  ___  )\__   __/( )     (  ___ \ (  ___  )(  ____ \| \    /\(  ___  )(  ____ \(  ____ \
-         | (   ) |   ) (   | |     | (   ) )| (   ) || (    \/|  \  / /| (   ) || (    \/| (    \/
-         | |   | |   | |   | |     | (__/ / | (___) || |      |  (_/ / | |   | || (__    | (__    
-         | |   | |   | |   | |     |  __ (  |  ___  || |      |   _ (  | |   | ||  __)   |  __)   
-         | |   | |   | |   (_)     | (  \ \ | (   ) || |      |  ( \ \ | |   | || (      | (      
-         | (___) |___) (___ _      | )___) )| )   ( || (____/\|  /  \ \| (___) || )      | )      
-         (_______)\_______/(_)     |/ \___/ |/     \|(_______/|_/    \/(_______)|/       |/       
-                                                                                                  
-```
+# oibackoff
 
-oibackoff - incremental backoff flow-control for any : fn(function(err, data) { ... });
+Incremental backoff flow-control for any `fn(function(err, data) { ... });`.
 
-[![Build Status](https://secure.travis-ci.org/appsattic/oibackoff.png?branch=master)](http://travis-ci.org/appsattic/oibackoff)
+[![Build Status](https://secure.travis-ci.org/chilts/oibackoff.png?branch=master)](http://travis-ci.org/chilts/oibackoff)
+
+## Stable ##
+
+Please note that this repo is stable. This means there may not be many commits, issues or releases. This is
+normal. Please submit any issues for any queries you may have.
 
 ## Features ##
 
@@ -151,6 +146,8 @@ Contributors:
 The MIT License : http://opensource.org/licenses/MIT
 
 Copyright (c) 2011-2012 AppsAttic Ltd. http://appsattic.com/
+
+Copyright (c) 2013-2014 Andrew Chilton. http://chilts.org/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the

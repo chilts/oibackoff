@@ -4,14 +4,14 @@
   "version": "0.3.0",
   "author": {
     "name": "Andrew Chilton",
-    "email": "chilts@appsattic.com",
-    "url": "http://www.chilts.org/"
+    "email": "andychilton@gmail.com",
+    "url": "http://chilts.org/"
   },
-  "homepage": "https://github.com/appsattic/oibackoff",
+  "homepage": "https://github.com/chilts/oibackoff",
   "contributors": [{
     "name": "Andrew Chilton",
-    "email": "chilts@appsattic.com",
-    "web": "http://www.chilts.org/" 
+    "email": "andychilton@gmail.com",
+    "web": "http://chilts.org/"
   },{
     "name": "Daniel Stevens",
     "email": "daniel.stevens@senico.com",
@@ -29,11 +29,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/appsattic/oibackoff.git"
+    "url": "git://github.com/chilts/oibackoff.git"
   },
   "bugs": {
-    "url": "http://github.com/appsattic/oibackoff/issues",
-    "mail": "chilts@appsattic.com"
+    "url": "http://github.com/chilts/oibackoff/issues"
   },
   "licenses": [
     {
