@@ -1,7 +1,7 @@
 {
   "name": "oibackoff",
   "description": "Incremental backoff flow-control for any : fn(function(err, data) { ... });",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Andrew Chilton",
     "email": "andychilton@gmail.com",
