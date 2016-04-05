@@ -11,7 +11,7 @@ normal. Please submit any issues for any queries you may have.
 
 ## Features ##
 
-* three different backoff algorithms: exponential, fibonacci and linear
+* three different backoff algorithms: 'exponential', 'fibonacci' and 'incremental'
 * max number of tries
 * max time to wait for any retry
 * scaling of the delay between tries
@@ -22,7 +22,7 @@ Your code can stay the same plus you also get extra information about intermedia
 
 Original code:
 
-```
+```js
 var dns = require('dns');
 
 // original code
@@ -35,13 +35,12 @@ dns.resolve('chilts.org', function(err, addresses) {
     // do something with addresses
     console.log(addresses);
 });
-
 ```
 
 Using exponential backoff, with a maxium of 5 tries, with delays of 0.2, 0.4, 0.8, 1.6 and 3.2 seconds is fairly
 similar and you can reuse the 'backoff' function many times:
 
-```
+```js
 var backoff = require('oibackoff').backoff({
     algorithm  : 'exponential',
     delayRatio : 0.2,
@@ -62,7 +61,7 @@ backoff(dns.resolve, 'chilts.org', function(err, addresses, priorErrors) {
 You can also provide an intermediate function which is called after each error. This method can be useful for logging
 or other operations between errors. By returning `false` you can cancel any additional tries.
 
-```
+```js
 var intermediate = function(err, tries, delay) {
     console.log(err);   // last error
     console.log(tries); // total number of tries performed thus far
@@ -97,9 +96,9 @@ If you choose the exponential algorithm, then 1s delayRatio will result in delay
 
 ### algorithm ###
 
-Default : 'exponential'
+Default : `exponential`
 
-Valid Values : exponential, incremental, fibonacci ;)
+Valid Values : `exponential`, `fibonacci`, `incremental` ;)
 
 ### maxDelay ###
 
@@ -111,7 +110,7 @@ If your chosen backoff strategy reaches a point which is above this number, then
 
 ## Example Backoff Stategies ##
 
-```
+```js
 var oibackoff = require('oibackoff');
 
 // 0.4, 0.8, 1.6, 3.2, 6.4, ...
@@ -135,8 +134,7 @@ var backoff = oibackoff.backoff({
 
 ## Author ##
 
-Written by: [Andrew Chilton](http://chilts.org/) - [Blog](http://chilts.org/blog/) -
-[Twitter](https://twitter.com/andychilton).
+Written by: [Andrew Chilton](http://chilts.org/) - [Twitter](https://twitter.com/andychilton).
 
 Contributors:
 [Daniel Stevens - Senico](http://senico.com/)
@@ -147,7 +145,7 @@ The MIT License : http://opensource.org/licenses/MIT
 
 Copyright (c) 2011-2012 AppsAttic Ltd. http://appsattic.com/
 
-Copyright (c) 2013-2014 Andrew Chilton. http://chilts.org/
+Copyright (c) 2013-2016 Andrew Chilton. http://chilts.org/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the
